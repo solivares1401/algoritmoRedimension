@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>test</title>
+    <script>                
+        let w = prompt("Ingrese ancho");
+        let h = prompt("Ingrese alto");
+        let max_w = 800;
+        let max_h = 600;
+
+        console.log(`imagen ancho=${w} imagen alto=${h}`);
+
+        console.log(`max_w=${max_w} max_h=${max_h}`);
+
+        console.log("----------------------------------------------");
+
+        let short_side_len = w < h ? w : h;
+        let long_side_len = w > h ? w : h;
+
+        console.log(`short_side_len=${short_side_len} long_side_len=${long_side_len}`);
+
+        let lsvar = w > h ? 'w':'h'; //identifica el lado con mayor pixel
+        let ssvar = w > h ? 'h':'w'; //identifica el lado con menos pixel        
+
+        let maxLSvar = lsvar == 'w' ? max_w : max_h; // en relacion al lado mayor identificado asigna el maximo configurado para ese lado
+        let maxSSvar = ssvar == 'h' ? max_h : max_w; // en relacion al lado menor identificado asigna el maximo configurado para ese lado
+
+        let ratio = maxLSvar/long_side_len; 
+
+        let newSS = Math.round(short_side_len * ratio); 
+        let newLS = Math.round(long_side_len * ratio); 
+
+            if (newSS > maxSSvar) {
+                ratio = maxSSvar / newSS;
+                newLS = Math.round(ratio * newLS);
+                newSS = maxSSvar;
+            } 
+
+        w = ssvar == 'w'? newSS:newLS;
+        h = lsvar == 'h'? newLS:newSS;    
+
+        console.log(`medidas re-dimensionadas: ancho=${w} alto=${h}`); 
+
+        window.addEventListener('DOMContentLoaded', function () {
+            document.querySelector('h1').innerHTML = `Medidas re-dimensionadas: ancho=${w}px alto=${h}px`;
+        });   
+                
+    </script>
+</head>
+<body>
+    <h1>hola</h1>
+</body>
+</html>
